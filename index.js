@@ -9,6 +9,9 @@ app.use(express.json());
 // router modules
 const userCreation = require("./routes/UserOperation");
 const getToken = require("./middleware/jwtIssue");
+const verifyUser = require("./routes/verifyUser");
+const pdpost = require("./middleware/postOperation");
+const verifyToken = require("./middleware/verifytoken");
 // app initialization
 app.get("/", (req, res) => {
   console.log(test);
@@ -18,8 +21,10 @@ app.get("/", (req, res) => {
 // basic routes
 app.post("/users", userCreation);
 app.get("/issueToken", getToken);
+app.get("/loginuser", verifyUser);
 
 // dashboard routes
+app.post("/addproduct", verifyToken, pdpost);
 
 // Admin Routes
 
