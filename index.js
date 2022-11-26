@@ -12,6 +12,7 @@ const getToken = require("./middleware/jwtIssue");
 const verifyUser = require("./routes/verifyUser");
 const pdpost = require("./middleware/postOperation");
 const verifyToken = require("./middleware/verifytoken");
+const alluser = require("./routes/allusers");
 // app initialization
 app.get("/", (req, res) => {
   console.log(test);
@@ -27,7 +28,7 @@ app.get("/loginuser", verifyUser);
 app.post("/addproduct", verifyToken, pdpost);
 
 // Admin Routes
-
+app.get("/dashboard/admin/alluser", alluser);
 // Payment Routes
 
 // Listen
