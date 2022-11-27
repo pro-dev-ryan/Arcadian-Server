@@ -13,6 +13,10 @@ const verifyUser = require("./routes/verifyUser");
 const pdpost = require("./middleware/postOperation");
 const verifyToken = require("./middleware/verifytoken");
 const alluser = require("./routes/allusers");
+const allproduct = require("./middleware/allproduct");
+const verifyseller = require("./routes/verifyseller");
+const category = require("./routes/category");
+const byCategory = require("./middleware/getProductbycategory");
 // app initialization
 app.get("/", (req, res) => {
   console.log(test);
@@ -23,12 +27,16 @@ app.get("/", (req, res) => {
 app.post("/users", userCreation);
 app.get("/issueToken", getToken);
 app.get("/loginuser", verifyUser);
+app.get("/allproducts", allproduct);
+app.get("/category", category);
+app.get("/shop/:category", byCategory);
 
 // dashboard routes
 app.post("/addproduct", verifyToken, pdpost);
+app.get("/dashboard/seller/verify/:email", verifyseller);
 
 // Admin Routes
-app.get("/dashboard/admin/alluser", alluser);
+app.get("/dashboard/admin/alluser", verifyUser, verifyToken, alluser);
 // Payment Routes
 
 // Listen

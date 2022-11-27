@@ -4,12 +4,13 @@ const user = db;
 const router = express.Router();
 
 router.post("/users", async (req, res) => {
-  const { name, email } = req.body;
+  const { name, email, url } = req.body;
   role = req.body.role ? "seller" : "buyer";
   if (role === "seller") {
     const userData = {
       name,
       email,
+      url,
       role,
       verify: false,
     };
@@ -24,6 +25,7 @@ router.post("/users", async (req, res) => {
     const userData = {
       name,
       email,
+      url,
       role,
     };
     const result = await user.user.insertOne(userData);
