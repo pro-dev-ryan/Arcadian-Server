@@ -19,7 +19,6 @@ const category = require("./routes/category");
 const byCategory = require("./middleware/getProductbycategory");
 // app initialization
 app.get("/", (req, res) => {
-  console.log(test);
   res.send("Server is ok, No issues");
 });
 
@@ -29,7 +28,7 @@ app.get("/issueToken", getToken);
 app.get("/loginuser", verifyUser);
 app.get("/allproducts", allproduct);
 app.get("/category", category);
-app.get("/shop/:category", byCategory);
+app.get("/shop/category/:type", byCategory);
 
 // dashboard routes
 app.post("/addproduct", verifyToken, pdpost);
