@@ -17,6 +17,9 @@ const allproduct = require("./middleware/allproduct");
 const verifyseller = require("./routes/verifyseller");
 const category = require("./routes/category");
 const byCategory = require("./middleware/getProductbycategory");
+const adminchecker = require("./middleware/adminchecker");
+const isAdmin = require("./routes/isAdmin");
+const deleteme = require("./middleware/deleteOperation.js");
 // app initialization
 app.get("/", (req, res) => {
   res.send("Server is ok, No issues");
@@ -32,10 +35,20 @@ app.get("/shop/category/:type", byCategory);
 
 // dashboard routes
 app.post("/addproduct", verifyToken, pdpost);
-app.get("/dashboard/seller/verify/:email", verifyseller);
+app.get("/dashboard/seller/verify/:email", verifyToken, verifyseller);
 
 // Admin Routes
-app.get("/dashboard/admin/alluser", verifyUser, verifyToken, alluser);
+app.get(
+  "/dashboard/admin/alluser",
+  verifyUser,
+  adminchecker,
+  verifyToken,
+  alluser
+);
+
+app.delete("/delete", verifyToken, isAdmin, deleteme);
+
+app.get("/dashboard/admin/:email", verifyToken, isAdmin);
 // Payment Routes
 
 // Listen
